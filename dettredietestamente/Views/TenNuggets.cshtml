@@ -1,0 +1,54 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<TopImagesPage>
+@{
+    Layout = "Master.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-12 top-image" id="ten-nuggets-image-container">
+        @{
+            var topImageGrid = Html.GetGridHtml(@Model, "topImageGrid").ToString().Replace("&#169; Martinus Institut", "©&nbsp;Martinus&nbsp;Institut");
+        }
+        @Html.Raw(topImageGrid)
+    </div>
+</div>
+
+<div class="row" id="ten-nuggets">
+    <div class="col-sm-4">
+    </div>
+    <div class="col-sm-8">
+        @if (Model.Title != null)
+        {
+            <h1>@Model.Title</h1>
+        }
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-4">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title">10 guldkorn</h3>
+                <ol>
+                @{
+                    var subPages = Model.Root().Descendants().FirstOrDefault(x => x.ContentType.Alias == TopImagesPage.ModelTypeAlias).Children();
+                    foreach (var page in subPages.Where(x => x.IsVisible()))
+                    {
+                        <li class="@(page.IsAncestorOrSelf(Model) ? "current " : null)">
+                            <a href="@page.Url">@page.Name</a>
+                        </li>
+                    }
+                }
+                </ol>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-8 article text-body">
+
+        @if (Model.MainContent != null)
+        {
+            @Model.MainContent
+        }
+
+    </div>
+</div>

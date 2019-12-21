@@ -1,0 +1,29 @@
+﻿@model IEnumerable<IPublishedContent>
+@{
+
+    var count = 0;
+
+    if (Model != null && Model.Count() == 1)
+    {
+        <div>
+            @foreach (var item in Model)
+            {
+                @item.GetProperty("firstName").Value() @Html.Raw("&nbsp;") @item.GetProperty("lastname").Value()
+            }
+        </div>
+    }
+    else if (Model != null && Model.Count() > 1)
+    {
+        <div>
+            @foreach (var item in Model)
+            {
+                if (count > 0)
+                {
+                    @Html.Raw(", ")
+                }
+                @item.GetProperty("firstName").Value() @Html.Raw("&nbsp;") @item.GetProperty("lastname").Value()
+                count++;
+            }
+        </div>
+    }
+}

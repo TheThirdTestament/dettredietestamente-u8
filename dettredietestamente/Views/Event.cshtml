@@ -1,0 +1,176 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<Event>
+@using ContentModels = Umbraco.Web.PublishedModels;
+@using System.Globalization;
+@using Umbraco.Web.Models;
+@using System.Text.RegularExpressions;
+@using DttInfo.App_Code
+@{
+    Layout = "Master.cshtml";
+
+    
+    IEnumerable<IPublishedContent> introImages = null;
+    IEnumerable<IPublishedContent> moreIntroImageItems = null;
+    IPublishedContent firstIntroImage = null;
+
+    if (Model.GetProperty("introImages").Value<IEnumerable<IPublishedContent>>() != null)
+    { 
+        introImages = Model.GetProperty("introImages").Value<IEnumerable<IPublishedContent>>();
+        moreIntroImageItems = (introImages.Count() > 1) ? introImages.Skip(1) : null;
+    }
+}
+
+@helper StripParagraph(string input)
+{
+    if (!string.IsNullOrEmpty(input))
+    {
+        input = Regex.Replace(input, "</?div>", String.Empty);
+        @Html.Raw(input)
+    }
+}
+
+@if (TempData["success"] == null) // if the reservation form is not submitted
+{
+    <div class="row">
+        <div class="col-sm-12">
+            <h1 style="padding-bottom:1em">@Html.Raw(@Model.Title)</h1>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-8">
+            @{
+                if (@Model.SubTitle.ToString().Length > 3)
+                {
+                    <h2 style="padding-bottom:1em">@Model.SubTitle</h2>
+                }
+
+                if (Model.Value<IEnumerable<IPublishedContent>>("speaker") != null)
+                {
+                    @Html.Partial("Events/displaySpeakersWithLabel", Model.Value<IEnumerable<IPublishedContent>>("speaker"))
+                }
+
+
+                if (@Model.ShortDescription != null)
+                {
+                    @Html.Raw(Model.Value("shortDescription").ToString())
+                }
+
+                if (@Model.EventType.ToString() == "Studiegruppe")
+                {
+                    <div>
+                        @Html.Partial("Events/displayLocation", Model.Location2)
+                    </div>
+                    <div>
+                        Der afholdes studiegrupper på disse tidspunkter:
+                    </div>
+                    @Html.Partial("Events/displayTimeSloths", Model)
+                }
+                else
+                {
+                    <div>
+                        @Html.Partial("Events/displayTime", Model)
+                        @Html.Partial("Events/displayLocation", Model.Location2)
+                    </div>
+                }
+            }
+
+            @if (@Model.Organizer != null && @Model.Organizer.ToString().Length > 8)
+            {
+                <div>
+                    Arrangeret af @Html.Partial("Events/displayOrganizer", Model.Organizer2)
+                </div>
+            }
+
+            @if (Model.HasValue("details"))
+            {
+                <div style="margin:2em 0 2em -1em">
+                    @Html.GetGridHtml(Model, "details")
+                </div>
+
+                // all intro images except the first
+
+                if (moreIntroImageItems != null)
+                {
+                    <div style="margin-top:2em; ">
+                        @foreach (var imageItem in moreIntroImageItems)
+                        {
+                            <div style="margin-bottom:1em">
+                                <img src="@imageItem.Url">
+                            </div>
+                        }
+                    </div>
+                }
+            }
+
+            @if (@Model.Price != null && Model.Price.ToString().Length > 8 || @Model.Registration != null && Model.Registration.ToString().Length > 8)
+            {
+                <div>
+                    @if (Model.Price != null && @Model.Price.ToString().Length > 8)
+                    {
+                        @Model.Price
+                    }
+                    @if (Model.Registration != null && Model.Registration.ToString().Length > 8)
+                    {
+                        @Model.Registration
+                        @Html.Action("Index", "EventFormSurface")
+                    }
+                </div>
+            }
+        </div>
+
+        @{
+            firstIntroImage = (introImages.Count() > 0) ? introImages.First() : null;
+            var relatedLinkItems = Model.Value<IEnumerable<Link>>("videoLinks");
+
+            if (firstIntroImage != null || relatedLinkItems != null)
+            {
+                <div class="col-sm-4">
+                    @if (firstIntroImage != null)
+                    {
+                        <div style="margin-bottom:1em">
+                            <img src='@firstIntroImage.Url'>
+                        </div>
+                    }
+
+                    @if (relatedLinkItems != null)
+                    {
+                        <div>
+                            @foreach (var item in relatedLinkItems)
+                            {
+                                var linkTarget = (!item.Target.ToString().IsEmpty()) ? "_blank" : null;
+                                <div><a href="@item.Url" target="@linkTarget">@item.Name</a></div>
+                            }
+                        </div>
+                    }
+                </div>
+            }
+        }
+
+    </div>
+
+    var fullWithImageItems = Model.Value<IEnumerable<IPublishedContent>>("fullWithImages");
+    if (fullWithImageItems != null)
+    {
+        <div class="row">
+            <div class="col-sm-12">
+                @foreach (var imageItem in fullWithImageItems)
+                {
+                    <div style="margin:1em 0 1em 0; text-align:center">
+                        <img src='@imageItem.Url' alt="@imageItem.Value("altText")">
+                        <span class="caption">@imageItem.Value("caption")</span>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+}
+else
+{
+    <div class="row">
+        <div class="col-sm-8" style="margin-bottom:2em">
+            <h1>@Model.Title</h1>
+            <div>Tak for din tilmelding. Vi svarer snarest!</div>
+        </div>
+    </div>
+}

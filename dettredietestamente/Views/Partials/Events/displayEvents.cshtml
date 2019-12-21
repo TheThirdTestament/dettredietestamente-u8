@@ -1,0 +1,13 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<Event>
+
+<div style="margin-bottom:2em">
+    <a class="headline" href="~/arrangementer/@Model.EventType.ToLower()@Model.Url.ToLower().Replace("/arrangementer", "")"><b>@Model.Title</b></a><br />
+    @Html.Partial("Events/displayShortDescription", Model)
+    @if (Model.GetProperty("speaker").Value<IEnumerable<IPublishedContent>>() != null) 
+    {
+        @Html.Partial("Events/displaySpeakers", Model.GetProperty("speaker").Value<IEnumerable<IPublishedContent>>())
+    }
+    @Html.Partial("Events/displayTime", Model)
+    @Html.Partial("Events/displayLocationCity", Model.Location2)
+</div>
+

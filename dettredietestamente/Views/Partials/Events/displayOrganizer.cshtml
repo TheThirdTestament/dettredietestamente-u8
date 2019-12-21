@@ -1,0 +1,18 @@
+﻿@model IPublishedContent
+
+@{
+        if (Model.GetProperty("Title").Value<string>().Length > 0)
+        {
+            @Model.GetProperty("Title").Value() <br />
+        }
+        if (Model.GetProperty("Address").Value<string>().Length > 0)
+        {
+            @Model.GetProperty("Address").Value()<br />
+        }
+
+        if (Model.GetProperty("City").Value<string>().Length > 0 && Model.GetProperty("Zip").Value<string>().Length > 0)
+        {
+            @Model.GetProperty("Zip").Value()@Html.Raw("&nbsp;")@Model.GetProperty("City").Value()
+        }
+}
+

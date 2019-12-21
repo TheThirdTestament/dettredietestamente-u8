@@ -1,0 +1,13 @@
+﻿Hej Jes, 
+Blot en ide.
+Som tredie linie i overskriften på den engelske side kunne ve med småt skrive: 
+The Science of Universal Love
+Alkærlighedens videnskab
+
+
+
+Search Box
+- https://codepen.io/artful_addict/pen/GZOrxy
+- https://stackoverflow.com/questions/50830110/search-bar-toggle-in-native-javascript
+- https://codepen.io/itsfreshmade/pen/yOmMbX
+- https://www.solodev.com/blog/web-design/creating-a-toggled-search-bar.stml

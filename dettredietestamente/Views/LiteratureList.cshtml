@@ -1,0 +1,52 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<LiteratureListViewModel>
+@using DttInfo.ViewModels;
+
+@{
+    Layout = "Master.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-sm-4">
+    </div>
+    <div class="col-sm-8">
+        <h1>@Html.Raw(Model.Catagory)</h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-4">
+        <br />&nbsp;
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title">Det Tredie Testamente</h3>
+                <ul>
+                    <li class="nav-item @("livets bog" == Model.Catagory.ToLower()  ? "current" : null)">
+                        <a href="/litteratur/livets-bog">Livets Bog</a>
+                    </li>
+                    <li class="nav-item @("det evige verdensbillede" == Model.Catagory.ToLower()  ? "current" : null)">
+                        <a href="/litteratur/det-evige-verdensbillede">Det Evige Verdensbillede</a>
+                    </li>
+                    <li class="nav-item @("de øvrige store bøger" == Model.Catagory.ToLower()  ? "current" : null)">
+                        <a href="/litteratur/andre-store-boeger">Øvrige store bøger</a>
+                    </li>
+                    <li class="nav-item @("småbøger" == Model.Catagory.ToLower()  ? "current" : null)">
+                        <a href="/litteratur/smaaboeger">Småbøger</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-8 book-list text-body">
+        @foreach (Book item in Model.Books)
+        {
+            <h2>@item.Title</h2>
+            <p>@item.Description</p>
+        }
+    </div>
+
+    <div class="col-sm-4">
+
+    </div>
+</div>
