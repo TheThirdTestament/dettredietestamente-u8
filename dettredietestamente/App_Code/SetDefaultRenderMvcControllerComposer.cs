@@ -41,17 +41,4 @@ namespace DttInfo.App_Code
                 new UmbracoVirtualNodeByIdRouteHandler(2665));
         }
     }
-
-    // TODO: Can probably be deleted
-    //UmbracoVirtualNodeByIdRouteHandler(New FindJobPageRouteHandler));
-    //public class FindJobPageRouteHandler : UmbracoVirtualNodeRouteHandler
-    //{
-    //    protected override IPublishedContent FindContent(RequestContext requestContext, UmbracoContext umbracoContext)
-    //    {
-    //        // change this to whatever you need, but make sure it is fast!
-    //        var jobspage = umbracoContext.Content.GetAtRoot().First().FirstChild<LiteratureOverview>();
-    //        return jobspage;
-    //    }
-    //}
-
 }

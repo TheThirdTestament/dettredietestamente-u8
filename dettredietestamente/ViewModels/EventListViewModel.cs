@@ -17,7 +17,7 @@ namespace DttInfo.ViewModels
                 IEnumerable<string> SubMenuItems = new List<string>();
             }
             public string Catagory { get; set; }
-            public IEnumerable<Umbraco.Web.PublishedModels.Event> Events { get; set; }
+            public IEnumerable<Event> Events { get; set; }
             public IEnumerable<string> SubMenuItems { get; set; }
 
     }
