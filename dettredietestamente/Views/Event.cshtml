@@ -56,14 +56,16 @@
                     @Html.Raw(Model.Value("shortDescription").ToString())
                 }
 
-                if (@Model.EventType.ToString() == "Studiegruppe")
+                if (@Model.EventType.ToString() == "Studiegruppe" || @Model.EventType.ToString() == "Udstilling")
                 {
-                    <div>
-                        @Html.Partial("Events/displayLocation", Model.Location2)
-                    </div>
-                    <div>
+                    
+                    @Html.Partial("Events/displayLocation", Model.Location2)
+                    
+                    if (@Model.EventType.ToString() == "Studiegruppe")
+                    {<div>
                         Der afholdes studiegrupper på disse tidspunkter:
                     </div>
+                    }
                     @Html.Partial("Events/displayTimeSloths", Model)
                 }
                 else

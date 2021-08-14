@@ -12,9 +12,9 @@
 
         IEnumerable<IPublishedContent> selection = Model.Children().OrderByDescending(x => x.SortOrder);
 
-        string titleText = "";
         string captionText = "";
-
+        string journalName = "";
+        string titleText = "";
         int grid = 4;
         double gridCol = 12 / grid;
         var intGridCol = (int)Math.Ceiling(gridCol);
@@ -24,83 +24,108 @@
 
     @foreach (var item in selection)
     {
-
-    <div class="row">
-        <div class="col-sm-4">
-            <!-- covers -->
-
-            @{
-
-                var pdf = item.Value<IPublishedContent>("eCopy");
-                var imageUrl = item.Value<IPublishedContent>("cover").Url;
-
-                titleText = "Den ny Verdensimpuls nr. " + item.Value("issue") + " " + item.Value("volume");
-                captionText = "nr. " + item.Value("issue") + " " + item.Value("volume");
-            }
-            <div style="width: 60%; margin: 0 auto; text-align:center; margin-top:5em">
-                <a rel="noopener" href="@pdf.Url" target="_blank" title="@titleText">
-                    <img style="border: solid 1px;" sizes="(min-width: 1200px) calc(1120px / @intGridCol), (min-width: 992px) calc(920px / @intGridCol), (min-width: 768px) calc(700px / @intGridCol), 100vw" srcset="@imageUrl?width=200 200w,@imageUrl?width=200 200w,@imageUrl?width=340 340w,@imageUrl?width=447 447w,@imageUrl?width=541 541w,@imageUrl?width=628 628w,@imageUrl?width=703 703w,@imageUrl?width=775 775w,@imageUrl?width=843 843w, @imageUrl?width=908 908w,@imageUrl?width=967 967w,@imageUrl?width=1023 1023w,@imageUrl?width=1082 1082w,@imageUrl?width=1135 1135w,@imageUrl?width=1188 1188w,@imageUrl?width=1242 1242w,@imageUrl?width=1291 1291w,@imageUrl?width=1340 1340w, @imageUrl?width=1387 1387w,@imageUrl?width=1431 1431w,@imageUrl?width=1476 1476w,@imageUrl?width=1520 1520w,@imageUrl?width=1565 1565w,@imageUrl?width=1605 1605w,@imageUrl?width=1650 1650w,@imageUrl?width=1690 1690w, @imageUrl?width=1729 1729w,@imageUrl?width=1765 1765w,@imageUrl?width=1805 1805w,@imageUrl?width=1847 1847w,@imageUrl?width=1885 1885w,@imageUrl?width=1923 1923w,@imageUrl?width=1956 1956w,@imageUrl?width=1995 1995w,@imageUrl?width=2031 2031w,@imageUrl?width=2069 2069w,@imageUrl?width=2101 2101w,@imageUrl?width=2137 2137w,@imageUrl?width=2170 2170w,@imageUrl?width=2206 2206w,@imageUrl?width=2240 2240w" src="@imageUrl" alt="@titleText" />
-                </a>
+        journalName = (Convert.ToInt32(item.Value("volume")) > 2020) ? "Den ny Verdenskultur" : "Den ny Verdensimpuls";
 
 
+<div class="row">
+    <div class="col-sm-4">
+        <!-- covers -->
+
+        @{
+
+            var pdf = item.Value<IPublishedContent>("eCopy");
+            var imageUrl = item.Value<IPublishedContent>("cover").Url;
+
+            titleText = journalName + " nr. " + item.Value("issue") + " " + item.Value("volume");
+            captionText = "nr. " + item.Value("issue") + " " + item.Value("volume");
+        }
+        <div style="width: 60%; margin: 0 auto; text-align:center; margin-top:5em">
+            <a rel="noopener" href="@pdf.Url" target="_blank" title="@titleText">
+                <img style="border: solid 1px;" sizes="(min-width: 1200px) calc(1120px / @intGridCol), (min-width: 992px) calc(920px / @intGridCol), (min-width: 768px) calc(700px / @intGridCol), 100vw" srcset="@imageUrl?width=200 200w,@imageUrl?width=200 200w,@imageUrl?width=340 340w,@imageUrl?width=447 447w,@imageUrl?width=541 541w,@imageUrl?width=628 628w,@imageUrl?width=703 703w,@imageUrl?width=775 775w,@imageUrl?width=843 843w, @imageUrl?width=908 908w,@imageUrl?width=967 967w,@imageUrl?width=1023 1023w,@imageUrl?width=1082 1082w,@imageUrl?width=1135 1135w,@imageUrl?width=1188 1188w,@imageUrl?width=1242 1242w,@imageUrl?width=1291 1291w,@imageUrl?width=1340 1340w, @imageUrl?width=1387 1387w,@imageUrl?width=1431 1431w,@imageUrl?width=1476 1476w,@imageUrl?width=1520 1520w,@imageUrl?width=1565 1565w,@imageUrl?width=1605 1605w,@imageUrl?width=1650 1650w,@imageUrl?width=1690 1690w, @imageUrl?width=1729 1729w,@imageUrl?width=1765 1765w,@imageUrl?width=1805 1805w,@imageUrl?width=1847 1847w,@imageUrl?width=1885 1885w,@imageUrl?width=1923 1923w,@imageUrl?width=1956 1956w,@imageUrl?width=1995 1995w,@imageUrl?width=2031 2031w,@imageUrl?width=2069 2069w,@imageUrl?width=2101 2101w,@imageUrl?width=2137 2137w,@imageUrl?width=2170 2170w,@imageUrl?width=2206 2206w,@imageUrl?width=2240 2240w" src="@imageUrl" alt="@titleText" />
+            </a>
+
+            @if (Convert.ToInt16(item.Value("volume")) > 2020) // MI copyright protection
+            {
                 <p class="caption" style="text-decoration:none;font-style:normal"><a rel="noopener" href="@pdf.Url" target="_blank" title="DNV_2017-02.pdf">Download @captionText </a> (.pdf)</p>
-            </div>
+            }
+            else
+            {
+                <p class="caption" style="text-decoration:none;font-style:normal">
+                    @captionText.ToFirstUpper()<br />
+                Martinus Institut tillader ikke, at man downloader dette nummer, da det indeholder tekster og symboler af Martinus.
+            </p>
+        }
 
         </div>
 
-        <div class="col-sm-4" style="margin-top:2em">
+    </div>
 
-            <h2>Den ny Verdensimpuls @captionText</h2>
+    <div class="col-sm-4" style="margin-top:2em">
 
-            <div style="margin-top:1em">
+        <h2>@journalName @captionText</h2>
 
-                @foreach (var article in item.Children().OrderBy(x => x.SortOrder))
-                {
-                    <p>
-                        @if (Html.GetGridHtml(article, "bodyText").ToString().Length > 200)
+        <div style="margin-top:1em">
+
+            @foreach (var article in item.Children().OrderBy(x => x.SortOrder))
+            {
+                <p>
+                    @if (Html.GetGridHtml(article, "bodyText").ToString().Length > 600)
+                    {
+                        if (article.Value("headline").ToString().Length > 5 && article.Value("subheadline").ToString().Length > 5)
                         {
-                            if (article.Value("headline").ToString().Length > 5 && article.Value("subheadline").ToString().Length > 5)
-                            {
-                                <a href="@article.Url">@article.Value("headline")@Html.Raw(".") @article.Value("subheadline")</a><br />
-                            }
-                            else if (article.Value("headline").ToString().Length > 5)
-                            {
-                                <a href="@article.Url">@article.Value("headline")</a><br />
-                            }
+                            <a href="@article.Url">@article.Value("headline")@Html.Raw(".") @article.Value("subheadline")</a><br />
                         }
-                        else
+                        else if (article.Value("headline").ToString().Length > 5)
                         {
-                            if (article.Value("headline").ToString().Length > 5 && article.Value("subheadline").ToString().Length > 5)
-                            {
-                                @article.Value("headline")@Html.Raw(".") @article.Value("subheadline")<br />
-                            }
-                            else if (article.Value("headline").ToString().Length > 5)
-                            {
-                                @article.Value("headline")<br />
-                            }
+                            <a href="@article.Url">@article.Value("headline")</a><br />
                         }
-                        Af @article.Value("author")
-                    </p>
-                }
+                    }
+                    else
+                    {
+                        if (article.Value("headline").ToString().Length > 5 && article.Value("subheadline").ToString().Length > 5)
+                        {
+                            @article.Value("headline")@Html.Raw(".") @article.Value("subheadline")<br />
+                        }
+                        else if (article.Value("headline").ToString().Length > 5)
+                        {
+                            @article.Value("headline")<br />
+                        }
+                    }
+                    Af @article.Value("author")
+                </p>
+            }
 
-            </div>
         </div>
-        @if (i == 0)
-        {
-            <div class="col-sm-4" style="margin-top:2em;">
-                <div class="card">
-                    <div class="card-body" style="text-align:left">
-                        <h5 class="card-title"><span style="font-size:120%;font-weight:600">Den ny Verdensimpuls</span></h5>
-                        <div style="text-align:left">
-                            @Model.Intro
-                        </div>
+    </div>
+    @if (i == 0)
+    {
+        <div class="col-sm-4" style="margin-top:2em;">
+            <div class="card">
+                <div class="card-body" style="text-align:left">
+                    <h5 class="card-title"><span style="font-size:120%;font-weight:600">Den ny Verdenskultur</span></h5>
+                    <div style="text-align:left">
+                        @Model.Intro
                     </div>
                 </div>
             </div>
-        }
-        @{ 
-            i++;
-        }
-    </div>
+
+            <div>
+                @{
+                    IPublishedContent elem = Model.Root().Children.Where(x => x.Name == "Forside").First();
+                    if (elem.GetProperty("displayDnvOrderWidget").Value<bool>() == true)
+                    {
+                        
+                            // email fungere ikke Pt
+                            // Umbraco.RenderMacro("dnvOrderWidget");
+                        
+                    }
+                }
+            </div>
+        </div>
     }
+    @{
+        i++;
+    }
+</div>
+}
 </div>

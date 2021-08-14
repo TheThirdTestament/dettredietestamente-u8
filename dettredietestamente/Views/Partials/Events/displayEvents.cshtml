@@ -3,7 +3,7 @@
 <div style="margin-bottom:2em">
     <a class="headline" href="~/arrangementer/@Model.EventType.ToLower()@Model.Url.ToLower().Replace("/arrangementer", "")"><b>@Model.Title</b></a><br />
     @Html.Partial("Events/displayShortDescription", Model)
-    @if (Model.GetProperty("speaker").Value<IEnumerable<IPublishedContent>>() != null) 
+    @if (Model.GetProperty("speaker").Value<IEnumerable<IPublishedContent>>() != null && Model.EventType.ToLower() != "udstilling") 
     {
         @Html.Partial("Events/displaySpeakers", Model.GetProperty("speaker").Value<IEnumerable<IPublishedContent>>())
     }

@@ -12,7 +12,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8">
-            @if (@Model.Headline != null && @Model.SubHeadline!= null)
+            @if (@Model.Headline != null && @Model.SubHeadline != null)
             {
                 <h1>@Model.Headline</h1>
                 <p class="sub-headline" style="font-size:130%">@Model.SubHeadline</p>
@@ -27,7 +27,7 @@
                 <div class="author">af @Model.Author</div>
             }
 
-            @if (@Model.Intro != null)
+            @if (@Model.Intro != null && @Model.Author != "Martinus" && Convert.ToBoolean(@Model.CopyrightProtected) == false) // MI copyright protection
             {
 
                 <div class="article-intro">@Model.Intro</div>
@@ -40,16 +40,26 @@
 
 
 
-
-@if (Html.GetGridHtml(Model, "bodyText").ToString().Length > 0)
+@if (Html.GetGridHtml(Model, "bodyText").ToString().Length > 0 && @Model.Author != "Martinus" && Convert.ToBoolean(@Model.CopyrightProtected) == false) // MI copyright protection
 {
     @Html.GetGridHtml(Model, "bodyText")
+}
+else // MI copyright protection
+{
+    string str = @Model.Author == "Martinus" ? "Det har ikke været muligt at få tillladelse fra Martinus Institut til at bringe denne artikel"  : "Det har ikke været muligt at få tillladelse fra Martinus Institut til at bringe denne artikel, da den indeholder symboler af Martinus";
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">@str</div>
+            <div class="col-md-4"></div>
+        </div>
+    </div>
 }
 
 
 <div class="container">
 
-    @if (@Model.Source != null)
+    @if (@Model.Source != null && @Model.Author != "Martinus" && Convert.ToBoolean(@Model.CopyrightProtected) == false) // MI copyright protection
     {
         <div class="row">
             <div class="col-sm-8">
@@ -64,7 +74,7 @@
         </div>
     }
 
-    @if (@Model.Footnotes.ToString().Length > 10)
+    @if (@Model.Footnotes.ToString().Length > 10 && @Model.Author != "Martinus" && Convert.ToBoolean(@Model.CopyrightProtected) == false) // MI copyright protection
     {
         <div class="row">
             <div class="col-md-8">
@@ -76,7 +86,7 @@
             <div class="col-md-4"></div>
         </div>
     }
-    @if (@Model.ReadMore.ToString().Length > 10)
+    @if (@Model.ReadMore.ToString().Length > 10 && @Model.Author != "Martinus" && Convert.ToBoolean(@Model.CopyrightProtected) == false) // MI copyright protection
     {
         <div class="row">
             <div class="col-md-8">

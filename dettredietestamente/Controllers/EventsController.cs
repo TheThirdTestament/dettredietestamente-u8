@@ -8,12 +8,13 @@ using Umbraco.Core.Models;
 using Umbraco.Core.Models.PublishedContent;
 using Umbraco.Core.PropertyEditors;
 using Umbraco.Web;
+using Umbraco.Web.Mvc;
 using Umbraco.Web.Models;
 using Umbraco.Web.PublishedModels;
 
 namespace dtt_info.Controllers
 {
-    public class EventsController : Umbraco.Web.Mvc.RenderMvcController
+    public class EventsController : RenderMvcController
     {
         public override ActionResult Index(ContentModel model)
         {

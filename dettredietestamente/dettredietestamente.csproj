@@ -501,11 +501,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="API\EventsController.cs" />
+    <Compile Include="App_Data\Models\DnvOrder.generated.cs" />
+    <Compile Include="App_Data\Models\DNvorderForm.generated.cs" />
     <Compile Include="Controllers\ContactFormSurfaceController.cs" />
+    <Compile Include="Controllers\DnvOrderFormSurfaceController.cs" />
     <Compile Include="Controllers\EventFormSurfaceController.cs" />
     <Compile Include="Controllers\EventsController.cs" />
     <Compile Include="Controllers\NewsletterFormSurfaceController.cs" />
     <Compile Include="ViewModels\ContactMessage.cs" />
+    <Compile Include="ViewModels\DnvOrderInfo.cs" />
     <Compile Include="ViewModels\EventListViewModel.cs" />
     <Compile Include="ViewModels\LiteratureListViewModel.cs" />
     <Compile Include="ViewModels\NewsletterRegistration.cs" />
@@ -642,6 +646,9 @@
     <Content Include="Views\Partials\Events\displayStudyGroupEvents.cshtml" />
     <Content Include="Views\Partials\Events\displayTime.cshtml" />
     <Content Include="Views\Partials\Events\displayTimeSloths.cshtml" />
+    <Content Include="Views\MacroPartials\dnvOrderForm.cshtml" />
+    <Content Include="Views\DNVOrderForm.cshtml" />
+    <Content Include="Views\MacroPartials\dnvOrderWidget.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -659,6 +666,7 @@
     <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.2.9.8\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
     <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.2.9.8\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

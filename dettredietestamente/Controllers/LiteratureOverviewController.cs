@@ -5,11 +5,12 @@ using System.Web.Mvc;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 using Umbraco.Web.Models;
+using Umbraco.Web.Mvc;
 using Umbraco.Web.PublishedModels;
 
 namespace DttInfo.Controllers
 {
-    public class LiteratureOverviewController : Umbraco.Web.Mvc.RenderMvcController
+    public class LiteratureOverviewController : RenderMvcController
     {
         
         // GET: LitteratureOverview

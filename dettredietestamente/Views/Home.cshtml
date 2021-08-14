@@ -16,7 +16,14 @@
         @Html.GetGridHtml(Model, "mainContent", "bootstrap3")
     </div>
     <div class="col-4">
+        
         @Umbraco.RenderMacro("listImageWidgets")
+        
+        @if (Model.DisplayDnvOrderWidget == true)
+        {
+            @Umbraco.RenderMacro("dnvOrderWidget");
+        }
         @Umbraco.RenderMacro("listEvents")
     </div>
+   
 </div>

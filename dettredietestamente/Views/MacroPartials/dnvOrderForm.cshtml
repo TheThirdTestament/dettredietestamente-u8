@@ -1,0 +1,85 @@
+﻿@model DttInfo.ViewModels.DnvOrderInfo
+@using reCAPTCHA.MVC
+@{
+    Layout = null;
+}
+@if (TempData["success"] == null)
+{
+    <div class="row">
+        <div class="col-sm-12">
+
+            <p>
+                Udfyld formularen og få det nyeste nummer af <i>Den ny Verdensimpuls</i> med posten.
+            </p>
+
+            <p>
+                <strong>Betaling</strong>: MobilePay 80 kr. til 22 73 66 (dækker porto & håndtering).
+            </p>
+
+            <p>
+                Husk at skrive: "DNV + dit navn" i MobilePays beskedfelt når du betaler.
+            </p>
+            
+            <br />
+
+            @using (Html.BeginUmbracoForm("HandleFormSubmit", "DnvOrderFormSurface", new object { }, new { @class = "form-horizontal" }))
+            {
+                <div class="form-group row">
+                    @Html.LabelFor(m => m.FullName, new { @class = "col-sm-2 control-label" })
+                    <div class="col-sm-5">
+                        @Html.TextBoxFor(m => m.FullName, new { @class = "form-control", placeholder = "Navn" })
+                        @Html.ValidationMessageFor(m => m.FullName)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(m => m.Address, new { @class = "col-sm-2 control-label" })
+                    <div class="col-sm-5">
+                        @Html.TextBoxFor(m => m.Address, new { @class = "form-control", placeholder = "Adresse" })
+                        @Html.ValidationMessageFor(m => m.Address)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(m => m.ZipTown, new { @class = "col-sm-2 control-label" })
+                    <div class="col-sm-5">
+                        @Html.TextBoxFor(m => m.ZipTown, new { @class = "form-control", rows = "6", placeholder = "Postnummer og by" })
+                        @Html.ValidationMessageFor(m => m.ZipTown)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(m => m.Phone, new { @class = "col-sm-2 control-label" })
+                    <div class="col-sm-5">
+                        @Html.TextBoxFor(m => m.Phone, new { @class = "form-control", rows = "6", placeholder = "Telefonnummer" })
+                        @Html.ValidationMessageFor(m => m.Phone)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(m => m.Email, new { @class = "col-sm-2 control-label" })
+                    <div class="col-sm-5">
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Email" })
+                        @Html.ValidationMessageFor(m => m.Email)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.Label(" ", new { @class = "col-sm-2 control-label" })
+                    <div class="col-sm-5">
+                        @Html.Recaptcha()
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-5 offset-sm-2">
+                        <button id="contact-submit" type="submit" class="btn btn-primary input-medium">Send</button>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+}
+else
+{
+    <div class="row">
+        <div class="col-sm-12">
+            <p>Tak fordi du bestilte <i>Den ny Verdensimpuls</i>. </p>
+            <p>Bladet bliver sendt, så snart din betaling er registreret via Mobile Pay!</p>
+        </div>
+    </div>
+}
