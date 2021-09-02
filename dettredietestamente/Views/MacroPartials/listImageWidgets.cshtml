@@ -18,7 +18,7 @@
     var image = item.Value<IPublishedContent>("cover");
     var pdf = item.Value<IPublishedContent>("eCopy");
 
-    titleText = "Den ny Verdensimpuls nr. " +  item.Value<IPublishedContent>("issue") + " " +  item.Value<IPublishedContent>("volume");
+    titleText = "Den ny Verdenskultur nr. " +  item.Value<IPublishedContent>("issue") + " " +  item.Value<IPublishedContent>("volume");
 
         //captionText = (i == 0) ? "det nye nummer" : "nr. " + item.GetPropertyValue("issue") + " " + item.GetPropertyValue("volume");
         captionText = (DateTime.Now.Subtract(item.CreateDate).TotalDays > 31 ) ? "det nyeste nummer" : "det nye nummer";

@@ -10,7 +10,9 @@
     </div>
     <div class="col-sm-8">
         <h1>@Model.Title</h1>
-        <div class="author">af <span>@Model.Author</span></div>
+        @if (Model.Author.Trim().Length > 3) { 
+            <div class="author">af <span>@Model.Author</span></div>
+        }
     </div>
 </div>
 

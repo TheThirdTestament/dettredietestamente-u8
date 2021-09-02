@@ -68,31 +68,35 @@
 
             @foreach (var article in item.Children().OrderBy(x => x.SortOrder))
             {
-                <p>
-                    @if (Html.GetGridHtml(article, "bodyText").ToString().Length > 600)
+            <p>
+                @if (Html.GetGridHtml(article, "bodyText").ToString().Length > 600)
+                {
+                    if (article.Value("headline").ToString().Length > 5 && article.Value("subheadline").ToString().Length > 5)
                     {
-                        if (article.Value("headline").ToString().Length > 5 && article.Value("subheadline").ToString().Length > 5)
-                        {
-                            <a href="@article.Url">@article.Value("headline")@Html.Raw(".") @article.Value("subheadline")</a><br />
-                        }
-                        else if (article.Value("headline").ToString().Length > 5)
-                        {
-                            <a href="@article.Url">@article.Value("headline")</a><br />
-                        }
+                        <a href="@article.Url">@article.Value("headline")@Html.Raw(".") @article.Value("subheadline")</a><br />
                     }
-                    else
+                    else if (article.Value("headline").ToString().Length > 5)
                     {
-                        if (article.Value("headline").ToString().Length > 5 && article.Value("subheadline").ToString().Length > 5)
-                        {
-                            @article.Value("headline")@Html.Raw(".") @article.Value("subheadline")<br />
-                        }
-                        else if (article.Value("headline").ToString().Length > 5)
-                        {
-                            @article.Value("headline")<br />
-                        }
+                        <a href="@article.Url">@article.Value("headline")</a><br />
                     }
-                    Af @article.Value("author")
-                </p>
+                }
+                else
+                {
+                    if (article.Value("headline").ToString().Length > 5 && article.Value("subheadline").ToString().Length > 5)
+                    {
+                        @article.Value("headline")@Html.Raw(".") @article.Value("subheadline")<br />
+                    }
+                    else if (article.Value("headline").ToString().Length > 5)
+                    {
+                        @article.Value("headline")<br />
+                    }
+                }
+
+                @if (article.Value("author").ToString().Length > 3)
+                {
+                    <span>Af @article.Value("author")</span>
+                }
+            </p>
             }
 
         </div>

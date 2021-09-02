@@ -22,7 +22,7 @@
                 <h1>@Model.Headline</h1>
             }
 
-            @if (@Model.Author != null)
+            @if (@Model.Author.Trim().Length > 3)
             {
                 <div class="author">af @Model.Author</div>
             }

@@ -19,10 +19,11 @@
         
         @Umbraco.RenderMacro("listImageWidgets")
         
-        @if (Model.DisplayDnvOrderWidget == true)
+        @*Order form uncomment because email does not work
+            @if (Model.DisplayDnvOrderWidget == true)
         {
             @Umbraco.RenderMacro("dnvOrderWidget");
-        }
+        }*@
         @Umbraco.RenderMacro("listEvents")
     </div>
    
