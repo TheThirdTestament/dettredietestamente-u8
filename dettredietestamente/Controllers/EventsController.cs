@@ -58,12 +58,15 @@ namespace dtt_info.Controllers
             
             var pastEvents = model.Content.Children.Where(x => x.GetProperty("EndTime").Value<DateTime>() < DateTime.Now).OrderBy(x => x.GetProperty("eventType").Value<string>()).ThenByDescending(x => x.GetProperty("StartTime").Value<DateTime>());
 
-            viewModel.Catagory = "foredrag";
-            viewModel.Events = upcomingEvents.Where(x => x.GetProperty("eventType").Value<string>() == "Foredrag").Select(x => (Event)x).ToList();
+            //viewModel.Catagory = "foredrag";
+            //viewModel.Events = upcomingEvents.Where(x => x.GetProperty("eventType").Value<string>() == "Foredrag").Select(x => (Event)x).ToList();
+
+            viewModel.Catagory = "";
+            viewModel.Events = upcomingEvents.Select(x => (Event)x).OrderBy(x => x.EventType).ThenBy(x => x.StartTime).ToList();
+
 
             if (RouteData.Values["category"] != null)
             {
-                // urlSegment "category"
                 string category = RouteData.Values["category"].ToString().ToLower();
                 viewModel.Catagory = category;
 
