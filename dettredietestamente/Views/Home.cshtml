@@ -16,14 +16,24 @@
         @Html.GetGridHtml(Model, "mainContent", "bootstrap3")
     </div>
     <div class="col-4">
-        
+
+        @*
+
+        *@
+
+        @Umbraco.RenderMacro("listNews")
+
         @Umbraco.RenderMacro("listImageWidgets")
-        
+
         @*Order form uncomment because email does not work
-            @if (Model.DisplayDnvOrderWidget == true)
+
+
+        @if (Model.DisplayDnvOrderWidget == true)
         {
             @Umbraco.RenderMacro("dnvOrderWidget");
-        }*@
+        }
+        *@
+
         @Umbraco.RenderMacro("listEvents")
     </div>
    

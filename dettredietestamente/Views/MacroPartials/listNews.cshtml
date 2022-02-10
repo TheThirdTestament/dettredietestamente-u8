@@ -12,23 +12,23 @@
 
 @{
 
-     var selection = Model.Content.Root().Children
-        .Where(x => x.Name == "Events" 
-        // && x.IsVisible() 
-        && Convert.ToDateTime(x.GetProperty("endTime").Value()) > DateTime.Now)
-        .OrderByDescending(x => x.CreateDate);
+     var selection = Umbraco.Content(Guid.Parse("f2d0fd29-2c41-4fb0-b7ef-305ec110e344"))
+            .Children()
+            .Where(x => Convert.ToDateTime(x.GetProperty("startDate").Value()) < DateTime.Now
+                && Convert.ToDateTime(x.GetProperty("endDate").Value()) > DateTime.Now)
+            .OrderByDescending(x => x.CreateDate);
 }
 
 @if (selection.Count() > 0) { 
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title" style="font-size:130%;font-weight:600">Kommende arrangementer</h5>
+            <h5 class="card-title" style="font-size:130%;font-weight:600">Nyheder</h5>
             <ul style="list-style:none;padding:1em 1em 0 1em">
                 @foreach (var item in selection)
                 {
                 <li>
                     <a class="headline" href="@item.Url">@item.Name</a><br />
-                    @Html.Raw(item.GetProperty("shortDescription").Value())
+                    @Html.Raw(item.GetProperty("teaser").Value())
                     @*<a href="@item.Url">Program og tilmelding</a>.*@
                 </li>
                 }
