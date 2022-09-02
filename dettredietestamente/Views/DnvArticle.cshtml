@@ -27,7 +27,9 @@
                 <div class="author">af @Model.Author</div>
             }
 
-            @if (@Model.Intro != null && @Model.Author != "Martinus" && Convert.ToBoolean(@Model.CopyrightProtected) == false) // MI copyright protection
+            @*// MI copyright protection
+                // && @Model.Author != "Martinus" && Convert.ToBoolean(@Model.CopyrightProtected) == false*@
+            @if (@Model.Intro != null)
             {
 
                 <div class="article-intro">@Model.Intro</div>
@@ -38,15 +40,15 @@
     </div>
 </div>
 
-
-
-@if (Html.GetGridHtml(Model, "bodyText").ToString().Length > 0 && @Model.Author != "Martinus" && Convert.ToBoolean(@Model.CopyrightProtected) == false) // MI copyright protection
+@*// MI copyright protection
+&& @Model.Author != "Martinus" && Convert.ToBoolean(@Model.CopyrightProtected) == false*@
+@if (Html.GetGridHtml(Model, "bodyText").ToString().Length > 0)
 {
     @Html.GetGridHtml(Model, "bodyText")
 }
-else // MI copyright protection
+@*else // MI copyright protection
 {
-    string str = @Model.Author == "Martinus" ? "Det har ikke været muligt at få tillladelse fra Martinus Institut til at bringe denne artikel"  : "Det har ikke været muligt at få tillladelse fra Martinus Institut til at bringe denne artikel, da den indeholder symboler af Martinus";
+    string str = @Model.Author == "Martinus" ? "Det har ikke været muligt at få tillladelse fra Martinus Institut til at bringe denne artikel" : "Det har ikke været muligt at få tillladelse fra Martinus Institut til at bringe denne artikel, da den indeholder symboler af Martinus";
 
     <div class="container">
         <div class="row">
@@ -54,12 +56,14 @@ else // MI copyright protection
             <div class="col-md-4"></div>
         </div>
     </div>
-}
+}*@
 
 
 <div class="container">
 
-    @if (@Model.Source != null && @Model.Author != "Martinus" && Convert.ToBoolean(@Model.CopyrightProtected) == false) // MI copyright protection
+    @*&& @Model.Author != "Martinus" && Convert.ToBoolean(@Model.CopyrightProtected) == false
+        // MI copyright protection*@
+    @if (@Model.Source != null)
     {
         <div class="row">
             <div class="col-sm-8">
@@ -73,8 +77,9 @@ else // MI copyright protection
             </div>
         </div>
     }
-
-    @if (@Model.Footnotes.ToString().Length > 10 && @Model.Author != "Martinus" && Convert.ToBoolean(@Model.CopyrightProtected) == false) // MI copyright protection
+    @*// MI copyright protection
+        && @Model.Author != "Martinus" && Convert.ToBoolean(@Model.CopyrightProtected) == false*@
+    @if (@Model.Footnotes.ToString().Length > 10)
     {
         <div class="row">
             <div class="col-md-8">
@@ -86,7 +91,9 @@ else // MI copyright protection
             <div class="col-md-4"></div>
         </div>
     }
-    @if (@Model.ReadMore.ToString().Length > 10 && @Model.Author != "Martinus" && Convert.ToBoolean(@Model.CopyrightProtected) == false) // MI copyright protection
+    @*// MI copyright protection
+    && @Model.Author != "Martinus" && Convert.ToBoolean(@Model.CopyrightProtected) == false*@
+    @if (@Model.ReadMore.ToString().Length > 10)
     {
         <div class="row">
             <div class="col-md-8">

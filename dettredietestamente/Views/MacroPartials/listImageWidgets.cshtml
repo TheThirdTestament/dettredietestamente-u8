@@ -2,8 +2,7 @@
 @using Umbraco.Core.Models
 @using Umbraco.Web
 @{
-    IEnumerable<IPublishedContent> selection = Model.Content.Root().DescendantOfType("imageWidgetOverview").Children
-        .OrderByDescending(x => x.SortOrder).Take(1);
+    IEnumerable<IPublishedContent> selection = Model.Content.Root().DescendantOfType("imageWidgetOverview").Children.OrderByDescending(x => x.SortOrder).Take(1);
     
     string titleText = "";
     string captionText = "";
